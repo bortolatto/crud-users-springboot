@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = Constants.GIT_REPOSITORY_TAG)
 public class GitRepositoryController {
 
-    @Value("${com.softplan.gitlab.url}")
+    @Value("${com.softplan.gitlab.url:#{null}}")
     private String url;
 
     @GetMapping
