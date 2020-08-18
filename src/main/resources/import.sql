@@ -1,1 +1,1 @@
-insert into pessoa(nome,data_nascimento,cpf,data_criacao) values ('Eduardo', current_timestamp, '049.568.379-50',current_timestamp);
+insert into pessoa(nome,data_nascimento,cpf,data_criacao) values ('Softplan', current_timestamp, '111.111.111-11',current_timestamp);

@@ -1,0 +1,188 @@
+{
+  "info": {
+    "_postman_id": "20e7f277-a0bc-4066-bcbd-7bb08e82c76c",
+    "name": "Softplan Challenge",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "All persons",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "agesune1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "softplan",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9080/pessoas/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9080",
+          "path": [
+            "pessoas",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Gitlab project URL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9080/source/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9080",
+          "path": [
+            "source",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete person",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "agesune1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "softplan",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:9080/pessoas/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9080",
+          "path": [
+            "pessoas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New person",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "agesune1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "softplan",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nome\": \"Fulano\",\n    \"cpf\": \"999.999.999-99\",\n    \"dataNascimento\": \"01/01/2000\",\n    \"email\": \"fulano@acme.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:9080/pessoas/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9080",
+          "path": [
+            "pessoas",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update person",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "agesune1",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "softplan",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n        \"nome\": \"Ciclano\",\n        \"sexo\": \"Masculino\",\n        \"email\": \"ciclano@acme.com\",\n        \"dataNascimento\": \"02/01/2000\",\n        \"cpf\": \"888.888.888-88\",\n        \"naturalidade\": \"Florianopolis/SC\",\n        \"nacionalidade\": \"Brasileiro\"\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:9080/pessoas/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "9080",
+          "path": [
+            "pessoas",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
