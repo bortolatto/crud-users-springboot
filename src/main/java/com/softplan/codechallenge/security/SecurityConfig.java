@@ -16,12 +16,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/source/**")
-                .permitAll()
+                    .antMatchers("/source/**", "/swagger-ui/**")
+                    .permitAll()
                 .anyRequest()
-                .authenticated()
+                    .authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable();
     }
