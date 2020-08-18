@@ -1,4 +1,4 @@
-package com.softplan.codechallenge.model;
+package com.softplan.codechallenge.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,19 +25,14 @@ public class Pessoa {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotNull
     private String nome;
 
     private String sexo;
 
-    @Email
     private String email;
 
-    @NotNull
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
 
-    @NotNull
-    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$")
     private String cpf;
 
     private String naturalidade;

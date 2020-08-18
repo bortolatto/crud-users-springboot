@@ -1,0 +1,1 @@
+insert into pessoa(nome,data_nascimento,cpf,data_criacao) values ('Eduardo', current_timestamp, '049.568.379-50',current_timestamp);
