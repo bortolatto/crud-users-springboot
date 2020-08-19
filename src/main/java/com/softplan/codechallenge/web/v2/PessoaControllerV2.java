@@ -21,6 +21,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Api(tags = Constants.PESSOAS_TAG)
 @RequestMapping("/v2/pessoas")
 @RestController
@@ -40,8 +43,14 @@ public class PessoaControllerV2 {
 
     @GetMapping
     @ApiOperation("Buscar todas as pessoas cadastradas")
+    @ApiResponses({@ApiResponse(code = 401, message = "Não autorizado"),
+            @ApiResponse(code = 200, message = "Request bem sucedida")})
     public List<PessoaDTOOutput> getAll() {
-        return toDto(pessoas.findAll());
+        List<PessoaDTOOutput> pessoas = toDto(this.pessoas.findAll());
+        pessoas.forEach((pessoa) ->
+                pessoa.add(linkTo(methodOn(PessoaControllerV2.class).findById(pessoa.getId())).withSelfRel()));
+
+        return pessoas;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,12 +61,16 @@ public class PessoaControllerV2 {
     public PessoaDTOOutput register(@Valid @RequestBody
                                         @ApiParam(name = "objeto", value = "Dados de uma nova pessoa")
                                                 PessoaDTOInput pessoa) {
-        return toDto(service.cadastrar(toPessoa(pessoa)));
+
+        PessoaDTOOutput novaPessoa = toDto(service.cadastrar(toPessoa(pessoa)));
+        novaPessoa.add(linkTo(methodOn(PessoaControllerV2.class).findById(novaPessoa.getId())).withSelfRel());
+
+        return novaPessoa;
     }
 
     @Transactional
     @PutMapping("/{id}")
-    @ApiOperation("Buscar uma pessoa informando o Id")
+    @ApiOperation("Atualiza uma pessoa informando o Id")
     @ApiResponses({@ApiResponse(code = 401, message = "Não autorizado"),
             @ApiResponse(code = 200, message = "Recurso atualizado com sucesso"),
             @ApiResponse(code = 404, message = "Pessoa não encontrada", response = Validation.class)})
@@ -72,7 +85,11 @@ public class PessoaControllerV2 {
         // somente para que a data de atualização
         // não fique null após o update
         entityManager.flush();
-        return ResponseEntity.ok(toDto(pessoaAtualizada));
+
+        PessoaDTOOutput dto = toDto(pessoaAtualizada);
+        dto.add(linkTo(methodOn(PessoaControllerV2.class).update(pessoa,id)).withSelfRel());
+
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")
@@ -83,6 +100,21 @@ public class PessoaControllerV2 {
             @ApiResponse(code = 404, message = "Pessoa não encontrada", response = Validation.class)})
     public void delete(@PathVariable @ApiParam(value = "Código da pessoa", example = "2") Long id) {
         service.excluir(id);
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("Buscar uma pessoa utilizando o Id")
+    @ApiResponses({@ApiResponse(code = 401, message = "Não autorizado"),
+            @ApiResponse(code = 200, message = "Request bem sucedida"),
+            @ApiResponse(code = 404, message = "Recurso não encontrado")})
+    public PessoaDTOOutput findById(@PathVariable @ApiParam(value = "Código da pessoa", example = "12") Long id) {
+        Pessoa pessoa = service.buscarPorId(id);
+        PessoaDTOOutput pessoaDTOOutput = toDto(pessoa);
+
+        pessoaDTOOutput.add(linkTo(methodOn(PessoaControllerV2.class).findById(id)).withSelfRel());
+        pessoaDTOOutput.add(linkTo(methodOn(PessoaControllerV2.class).getAll()).withRel("pessoas"));
+
+        return pessoaDTOOutput;
     }
 
     private Pessoa toPessoa(PessoaDTOInput pessoaDTO) {
