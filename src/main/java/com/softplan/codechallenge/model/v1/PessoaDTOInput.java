@@ -1,4 +1,4 @@
-package com.softplan.codechallenge.model;
+package com.softplan.codechallenge.model.v1;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
