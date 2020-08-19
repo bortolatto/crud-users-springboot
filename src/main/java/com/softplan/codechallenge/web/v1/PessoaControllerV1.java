@@ -1,12 +1,12 @@
-package com.softplan.codechallenge.web;
+package com.softplan.codechallenge.web.v1;
 
 import com.softplan.codechallenge.constants.Constants;
 import com.softplan.codechallenge.domain.Pessoa;
 import com.softplan.codechallenge.domain.repository.Pessoas;
 import com.softplan.codechallenge.domain.service.PessoaService;
 import com.softplan.codechallenge.exceptionhandler.Validation;
-import com.softplan.codechallenge.model.PessoaDTOInput;
-import com.softplan.codechallenge.model.PessoaDTOOutput;
+import com.softplan.codechallenge.model.v1.PessoaDTOInput;
+import com.softplan.codechallenge.model.v1.PessoaDTOOutput;
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Api(tags = Constants.PESSOAS_TAG)
-@RequestMapping("/pessoas")
+@RequestMapping("/v1/pessoas")
 @RestController
-public class PessoaController {
+public class PessoaControllerV1 {
 
     @Autowired
     private Pessoas pessoas;

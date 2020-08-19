@@ -20,12 +20,26 @@ import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 public class SpringFoxConfig implements WebMvcConfigurer {
 
     @Bean
-    public Docket docket() {
+    public Docket docketv1() {
         return new Docket(SWAGGER_2)
+                .groupName("V1")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.softplan.codechallenge.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.softplan.codechallenge.web.v1"))
                 .build()
-                .apiInfo(info())
+                .apiInfo(infov1())
+                .useDefaultResponseMessages(false)
+                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"),
+                        new Tag(Constants.GIT_REPOSITORY_TAG, "Consulta repositório do projeto"));
+    }
+
+    @Bean
+    public Docket docketv2() {
+        return new Docket(SWAGGER_2)
+                .groupName("V2")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.softplan.codechallenge.web.v2"))
+                .build()
+                .apiInfo(infov2())
                 .useDefaultResponseMessages(false)
                 .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"),
                         new Tag(Constants.GIT_REPOSITORY_TAG, "Consulta repositório do projeto"));
@@ -40,11 +54,20 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    public ApiInfo info() {
+    public ApiInfo infov1() {
         return new ApiInfoBuilder()
                 .title("Softplan API")
                 .description("API pública de cadastro de pessoas")
                 .version("1")
+                .contact(new Contact("Softplan", "http://www.softplan.com.br", "softplan@softplan.com.br"))
+                .build();
+    }
+
+    public ApiInfo infov2() {
+        return new ApiInfoBuilder()
+                .title("Softplan API")
+                .description("API pública de cadastro de pessoas")
+                .version("2")
                 .contact(new Contact("Softplan", "http://www.softplan.com.br", "softplan@softplan.com.br"))
                 .build();
     }

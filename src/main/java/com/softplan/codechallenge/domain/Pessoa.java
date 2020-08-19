@@ -39,6 +39,8 @@ public class Pessoa {
 
     private String nacionalidade;
 
+    private String endereco;
+
     @Column(name = "data_criacao", updatable = false, nullable = false)
     private LocalDateTime dataCriacao;
 
