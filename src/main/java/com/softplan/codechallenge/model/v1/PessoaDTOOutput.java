@@ -4,12 +4,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class PessoaDTOOutput {
+public class PessoaDTOOutput extends RepresentationModel<PessoaDTOOutput> {
 
     @ApiModelProperty(example = "5")
     private Long id;
