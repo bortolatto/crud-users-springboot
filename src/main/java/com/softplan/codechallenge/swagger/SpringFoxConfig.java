@@ -13,6 +13,7 @@ import springfox.documentation.service.Tag;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import static springfox.documentation.builders.PathSelectors.regex;
 import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 
 @Configuration
@@ -28,8 +29,20 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .build()
                 .apiInfo(infov1())
                 .useDefaultResponseMessages(false)
-                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"),
-                        new Tag(Constants.GIT_REPOSITORY_TAG, "Consulta repositório do projeto"));
+                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"));
+    }
+
+    @Bean
+    public Docket docketCommons() {
+        return new Docket(SWAGGER_2)
+                .groupName("Commons")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.softplan.codechallenge.web"))
+                .paths(regex("/source"))
+                .build()
+                .apiInfo(infov1())
+                .useDefaultResponseMessages(false)
+                .tags(new Tag(Constants.GIT_REPOSITORY_TAG, "Consulta repositório do projeto"));
     }
 
     @Bean
@@ -41,8 +54,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .build()
                 .apiInfo(infov2())
                 .useDefaultResponseMessages(false)
-                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"),
-                        new Tag(Constants.GIT_REPOSITORY_TAG, "Consulta repositório do projeto"));
+                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"));
     }
 
     @Override
