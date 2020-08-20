@@ -9,7 +9,19 @@
 			"name": "v1",
 			"item": [
 				{
-					"name": "All persons",
+					"name": "All people",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e26cddc-19d1-4459-a8b2-f6b11460e75c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -37,6 +49,40 @@
 								"v1",
 								"pessoas",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find person by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "agesune1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "softplan",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/pessoas/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"pessoas",
+								"1"
 							]
 						}
 					},
@@ -98,7 +144,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Fulano\",\n    \"cpf\": \"999.999.999-99\",\n    \"dataNascimento\": \"01/01/2000\",\n    \"email\": \"fulano@acme.com\"\n}",
+							"raw": "{\n    \"nome\": \"Ciclano\",\n    \"cpf\": \"999.999.999-90\",\n    \"dataNascimento\": \"01/01/2000\",\n    \"email\": \"fulano@acme.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -141,7 +187,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"nome\": \"Ciclano\",\n        \"sexo\": \"Masculino\",\n        \"email\": \"ciclano@acme.com\",\n        \"dataNascimento\": \"02/01/2000\",\n        \"cpf\": \"888.888.888-88\",\n        \"naturalidade\": \"Florianopolis/SC\",\n        \"nacionalidade\": \"Brasileiro\"\n    }",
+							"raw": "{\n    \"nome\": \"Ciclano\",\n    \"sexo\": \"Masculino\",\n    \"email\": \"ciclano@acme.com\",\n    \"dataNascimento\": \"02/01/2000\",\n    \"naturalidade\": \"Florianopolis/SC\",\n    \"nacionalidade\": \"Brasileiro\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -169,7 +215,7 @@
 			"name": "v2",
 			"item": [
 				{
-					"name": "All persons",
+					"name": "All people",
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -301,7 +347,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"nome\": \"Ciclano\",\n        \"sexo\": \"Masculino\",\n        \"email\": \"ciclano@acme.com\",\n        \"dataNascimento\": \"02/01/2000\",\n        \"cpf\": \"888.888.888-88\",\n        \"naturalidade\": \"Florianopolis/SC\",\n        \"nacionalidade\": \"Brasileiro\"\n    }",
+							"raw": "{\n        \"nome\": \"Ciclano\",\n        \"sexo\": \"Masculino\",\n        \"email\": \"ciclano@acme.com\",\n        \"dataNascimento\": \"02/01/2000\",\n        \"naturalidade\": \"Florianopolis/SC\",\n        \"nacionalidade\": \"Brasileiro\",\n        \"endereco\": \"Sem endereco\"\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -309,14 +355,48 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/v2/pessoas/2",
+							"raw": "{{url}}/v2/pessoas/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"v2",
 								"pessoas",
-								"2"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find person by id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "agesune1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "softplan",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v2/pessoas/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v2",
+								"pessoas",
+								"1"
 							]
 						}
 					},
