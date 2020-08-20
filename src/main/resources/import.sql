@@ -1,0 +1,1 @@
+insert into pessoa(nome,data_nascimento,cpf,data_criacao, endereco) values ('Softplan', current_timestamp, '111.111.111-11',current_timestamp,'Av. Luiz Boiteux Piazza, N1302, Lote 87/89, Cachoeira do Bom Jesus');
