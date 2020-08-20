@@ -28,7 +28,7 @@ public class PessoaService {
 
     public Pessoa atualizar(Long pessoaId, Pessoa pessoa) {
         Pessoa pessoaAtual = buscarPorId(pessoaId);
-        BeanUtils.copyProperties(pessoa, pessoaAtual, "id", "dataCriacao", "dataUltimaAtualizacao");
+        BeanUtils.copyProperties(pessoa, pessoaAtual, "id", "dataCriacao", "dataUltimaAtualizacao", "cpf");
 
         return pessoas.save(pessoaAtual);
     }

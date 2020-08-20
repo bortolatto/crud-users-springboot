@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "d21453e8-b95a-4b95-b4e6-f9d99f9161f4",
+		"name": "Softplan Challenge Integration Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Should_Return_200_List_All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4761a331-575e-4dde-8d2b-53c3a7d88eed",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"type\": \"array\",",
+							"  \"items\": [",
+							"    {",
+							"      \"type\": \"object\",",
+							"      \"properties\": {",
+							"        \"id\": {",
+							"          \"type\": \"integer\"",
+							"        },",
+							"        \"nome\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"sexo\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"email\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"dataNascimento\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"cpf\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"naturalidade\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"nacionalidade\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"dataCriacao\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"dataUltimaAtualizacao\": {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        \"links\": {",
+							"          \"type\": \"array\",",
+							"          \"items\": [",
+							"            {",
+							"              \"type\": \"object\",",
+							"              \"properties\": {",
+							"                \"rel\": {",
+							"                  \"type\": \"string\"",
+							"                },",
+							"                \"href\": {",
+							"                  \"type\": \"string\"",
+							"                }",
+							"              },",
+							"              \"required\": [",
+							"                \"rel\",",
+							"                \"href\"",
+							"              ]",
+							"            }",
+							"          ]",
+							"        }",
+							"      },",
+							"      \"required\": [",
+							"        \"id\",",
+							"        \"nome\",",
+							"        \"sexo\",",
+							"        \"email\",",
+							"        \"dataNascimento\",",
+							"        \"cpf\",",
+							"        \"naturalidade\",",
+							"        \"nacionalidade\",",
+							"        \"dataCriacao\",",
+							"        \"dataUltimaAtualizacao\",",
+							"        \"links\"",
+							"      ]",
+							"    }",
+							"  ]",
+							"};",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"    let Ajv = require('ajv');",
+							"",
+							"    ajv = new Ajv({",
+							"        logger: console",
+							"    });    ",
+							"    let data = pm.response.json();",
+							"",
+							"    console.log(data)",
+							"    let valid = ajv.validate(schema, data);",
+							"    pm.expect(valid).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Return_401_When_Credentials_Are_Omitted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d32b2bcf-f3f2-4e58-9b42-74520ba72cde",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.be.clientError;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Not_Contain_Address_Field_In_V1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f66b6734-248a-4321-8e2c-b33f92f29d18",
+						"exec": [
+							"pm.test(\"Address must not exist\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData);",
+							"    pm.expect(jsonData.address) == null;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Contain_Last_Time_When_Person_Is_Updated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22cf3e33-10bc-438f-a0c4-dbefa2cd3aff",
+						"exec": [
+							"pm.test(\"Data última atualização must not be null\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"",
+							"    pm.expect(jsonData.dataUltimaAtualizacao) != null;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Ciclanoo\",\n    \"sexo\": \"Masculino\",\n    \"email\": \"ciclano@acme.com\",\n    \"dataNascimento\": \"02/01/2000\",\n    \"cpf\": \"888.888.888-88\",\n    \"naturalidade\": \"Florianopolis/SC\",\n    \"nacionalidade\": \"Brasileiro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/pessoas/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Reject_New_Person_Without_CPF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7766a8e2-3a00-4002-aa09-b698a087bbec",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Must contain CPF validation\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    let fieldName = jsonData.campos[0].nome;",
+							"    let message = jsonData.campos[0].mensagem;",
+							"",
+							"    pm.expect(fieldName).to.eql(\"cpf\");",
+							"    pm.expect(message).to.eql(\"must not be null\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Ciclano\",\n    \"dataNascimento\": \"01/01/2000\",\n    \"email\": \"fulano@acme.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Reject_New_Person_Invalid_Date_of_Birth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecb37fb1-8e28-485c-a5bd-f230c49f9cff",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Must contain date of birth validation\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    let fieldName = jsonData.campos[0].nome;",
+							"    let message = jsonData.campos[0].mensagem;",
+							"",
+							"    pm.expect(fieldName).to.eql(\"dataNascimento\");",
+							"    pm.expect(message).to.eql(\"Data precisa seguir o padrão dd/MM/yyyy\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Ciclano\",\n    \"dataNascimento\": \"10/29/2000\",\n    \"email\": \"fulano@acme.com\",\n    \"cpf\": \"999.999.999-99\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Reject_New_Person_When_Mandatory_Fields_Are_Omitted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "365cdc0f-9bf8-4c05-b3d9-e423b4ef0fdf",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Must contain mandatory fields validation\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    let errors = jsonData.campos.length;",
+							"    pm.expect(errors).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Ciclano\",\n    \"dataNascimento\": \"10/29/2000\",\n    \"email\": \"fulano@acme.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should_Reject_New_Person_V2_If_Address_Is_Omitted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b86e95a2-f208-44f6-b4c8-6a2a23c6c7e9",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Address must not be null\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    let fieldName = jsonData.campos[0].nome;",
+							"    let message = jsonData.campos[0].mensagem;",
+							"",
+							"    pm.expect(fieldName).to.eql(\"endereco\");",
+							"    pm.expect(message).to.eql(\"must not be null\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "agesune1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "softplan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Ciclano\",\n    \"dataNascimento\": \"29/10/2000\",\n    \"email\": \"fulano@acme.com\",\n    \"cpf\": \"999.999.999-00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v2/pessoas/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v2",
+						"pessoas",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5c15b4d0-d45a-4e0a-820b-f3faba9adb48",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "99b976fe-4225-451f-ab44-c6f3894d8c9e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

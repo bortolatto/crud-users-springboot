@@ -7,6 +7,7 @@ import com.softplan.codechallenge.domain.service.PessoaService;
 import com.softplan.codechallenge.exceptionhandler.Validation;
 import com.softplan.codechallenge.model.v2.PessoaDTOInput;
 import com.softplan.codechallenge.model.v2.PessoaDTOOutput;
+import com.softplan.codechallenge.model.v2.PessoaDTOUpdate;
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,11 +77,12 @@ public class PessoaControllerV2 {
             @ApiResponse(code = 404, message = "Pessoa não encontrada", response = Validation.class)})
     public ResponseEntity<PessoaDTOOutput> update(@Valid @RequestBody
                                                       @ApiParam(name = "objeto", value = "Dados novos da pessoa")
-                                                              PessoaDTOInput pessoa,
+                                                              PessoaDTOUpdate pessoa,
                                                   @PathVariable @ApiParam(value = "Código da pessoa", example = "10")
                                                           Long id) {
 
-        Pessoa pessoaAtualizada = service.atualizar(id, toPessoa(pessoa));
+        Pessoa pessoaMap = modelMapper.map(pessoa, Pessoa.class);
+        Pessoa pessoaAtualizada = service.atualizar(id, pessoaMap);
 
         // somente para que a data de atualização
         // não fique null após o update
