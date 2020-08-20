@@ -32,6 +32,8 @@ On the top-rigth you'll should see three specs:
 * V1
 * V2
 
+**WARNING** If the browser requests you any credentials, just put **softplan/agesune1**.
+
 In **Commons** you'll find the endpoint which provides the link to this repository,
 whereas either **V1** or **V2** it will explain the difference between these two versions.
 
