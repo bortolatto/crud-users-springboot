@@ -55,7 +55,7 @@ These can be found on the root of this project:
 You have to import these to be able to make requests.
 More information about Postman's environments can be found [here](https://learning.postman.com/docs/sending-requests/managing-environments/).
 
-###Obtaining an access token
+### Obtaining an access token
 You must obtain an access token, which will allow you to make requests.
 You can achieve this in two different ways:
 * Using cURL:
