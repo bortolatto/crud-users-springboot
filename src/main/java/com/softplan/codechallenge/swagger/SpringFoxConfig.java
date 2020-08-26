@@ -1,17 +1,23 @@
 package com.softplan.codechallenge.swagger;
 
 import com.softplan.codechallenge.constants.Constants;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
@@ -19,6 +25,14 @@ import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 @Configuration
 @EnableSwagger2
 public class SpringFoxConfig implements WebMvcConfigurer {
+
+    @Value("${uaa.clientId}")
+    String clientId;
+    @Value("${uaa.clientSecret}")
+    String clientSecret;
+
+    @Value("${uaa.url}")
+    String oAuthServerUri;
 
     @Bean
     public Docket docketv1() {
@@ -29,7 +43,27 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .build()
                 .apiInfo(infov1())
                 .useDefaultResponseMessages(false)
-                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"));
+                .tags(new Tag(Constants.PESSOAS_TAG, "Gerenciamento de pessoas"))
+                .securitySchemes(Collections.singletonList(oauth()));
+    }
+
+    @Bean
+    List<GrantType> grantTypes() {
+        List<GrantType> grantTypes = new ArrayList<>();
+        TokenEndpoint tokenEndpoint = new TokenEndpoint(oAuthServerUri+"/oauth/token", "token");
+        grantTypes.add(new ClientCredentialsGrant(tokenEndpoint.getUrl()));
+
+
+
+        return grantTypes;
+    }
+
+    @Bean
+    SecurityScheme oauth() {
+        return new OAuthBuilder()
+                .name("OAuth2")
+                .grantTypes(grantTypes())
+                .build();
     }
 
     @Bean
@@ -83,4 +117,11 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .contact(new Contact("Softplan", "http://www.softplan.com.br", "softplan@softplan.com.br"))
                 .build();
     }
+
+    @Bean
+    public SecurityConfiguration securityInfo() {
+        return new SecurityConfiguration(clientId, clientSecret, "realm", "Softplan Code Challenge", "apiKey", ApiKeyVehicle.HEADER, "api_key", "");
+    }
+
+
 }

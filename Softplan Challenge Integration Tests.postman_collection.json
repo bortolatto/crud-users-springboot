@@ -110,16 +110,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -196,16 +191,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -247,16 +237,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -315,16 +300,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -383,16 +363,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -448,16 +423,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -516,16 +486,11 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
+					"type": "bearer",
+					"bearer": [
 						{
-							"key": "password",
-							"value": "agesune1",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "softplan",
+							"key": "token",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
