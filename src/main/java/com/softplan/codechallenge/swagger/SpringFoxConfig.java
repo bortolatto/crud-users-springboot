@@ -11,8 +11,8 @@ import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
@@ -120,8 +120,12 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
     @Bean
     public SecurityConfiguration securityInfo() {
-        return new SecurityConfiguration(clientId, clientSecret, "realm", "Softplan Code Challenge", "apiKey", ApiKeyVehicle.HEADER, "api_key", "");
-    }
 
+        return SecurityConfigurationBuilder.builder()
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .appName("Auth0")
+                .build();
+    }
 
 }
