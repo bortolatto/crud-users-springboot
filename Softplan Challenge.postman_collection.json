@@ -24,16 +24,11 @@
 					],
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -58,16 +53,11 @@
 					"name": "Find person by id",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -126,16 +116,11 @@
 					"name": "New person",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -169,16 +154,11 @@
 					"name": "Update person",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -218,16 +198,11 @@
 					"name": "All people",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -252,16 +227,11 @@
 					"name": "Delete person",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -286,16 +256,11 @@
 					"name": "New person",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -329,16 +294,11 @@
 					"name": "Update person",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -372,16 +332,11 @@
 					"name": "Find person by id",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "agesune1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "softplan",
+									"key": "token",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -440,6 +395,68 @@
 					"path": [
 						"source",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OAuth2 Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5c62883-28b8-4d90-9074-e8c2805354d2",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.globals.set(\"access_token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "JLRmO4dZPB7DM0phHqYTI0ycUfbNrteu",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "JyfncS8tZ8cSxGLI_V3m3JaUOs2NQdlGgAx1ARletKAFfmmyDpwoIF6a0_bzu66V",
+							"type": "text"
+						},
+						{
+							"key": "audience",
+							"value": "http://localhost:8080",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://dev-qgqmfum4.us.auth0.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"dev-qgqmfum4",
+						"us",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
 					]
 				}
 			},
