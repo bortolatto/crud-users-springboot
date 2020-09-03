@@ -1,9 +1,12 @@
-FROM openjdk:16-slim
-
+FROM adoptopenjdk:11-jre-hotspot as builder
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
+                      
+FROM adoptopenjdk:11-jre-hotspot
 EXPOSE 8080
-
-WORKDIR /app
-
-COPY target/code-challenge-0.0.1-SNAPSHOT.jar /app/app.jar
-
-CMD ["java", "-jar", "app.jar"]
+COPY --from=builder dependencies/ ./
+COPY --from=builder snapshot-dependencies/ ./
+COPY --from=builder spring-boot-loader/ ./
+COPY --from=builder application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
